@@ -81,7 +81,7 @@ program compare_catalog
   dmax = dmax * 1.6
   
   !
-  ! ... Read the structure that needs to be analyzed xyz
+  ! ... Read the structures that need to be analyzed xyz
   OPEN(11,FILE=TRIM(file_analyze))
   READ(11,*) nstruc_analyze
   ALLOCATE( analyze(nstruc_analyze))
@@ -123,9 +123,6 @@ program compare_catalog
     IF (analyze(istruc)%typ(iat) /= 999) then
      CALL set_atoms_dist( analyze(istruc)%nat, analyze(istruc)%coords, analyze(istruc)%lat, iat, dmax, n_list, list )
      !
-     ! list contient les indices des voisins de iat
-     ! stocker list et la print dans l'output
-     !
      ALLOCATE( loc%typ(1:n_list+1))
      ALLOCATE( loc%coords(1:3,1:n_list+1))
      CALL get_atoms( analyze(istruc)%nat, analyze(istruc)%typ, analyze(istruc)%coords, analyze(istruc)%lat, &
@@ -142,7 +139,7 @@ program compare_catalog
      ENDDO
      DEALLOCATE( loc%typ, loc%coords )
      !
-     !
+     ! ... Add the atom information in the output if it matches the patterns in catalog
       IF (dist_lowest <= 5) THEN
        WRITE(12,'(i8,i5,i5,f10.7)',ADVANCE='NO') iat, analyze(istruc)%typ(iat), idx, dist_lowest
        DO jat = 2, n_list
