@@ -118,4 +118,3 @@ clean:
 	rm -f $(IRAEQ_X) $(IRANEQ_X) $(IRAGEN_X) $(IRALIB)
 	rm -rf $(OBJ)
 
-
